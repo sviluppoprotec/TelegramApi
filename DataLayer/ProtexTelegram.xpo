@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataBaseObjectModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="b184c220-0655-4eb1-b29d-34335295d290" namespace="ProtecTelegram.DataLayer.Database" dataBaseShemaInfo="H4sIAAAAAAAEAMVWXW/bNhR9H7D/IOhpAyLrW5YK2UVtt4HRrTBip+hbQIlXDjGZykjJcfrrdynLiiU7ndsV2UsSnnvu5T3k0Q3jt7tNrm1BSFbwkW4PLP3t+Ndf4gmRsCwLQdYw51mhIYvLNztJR/p9WT68Mc3Hx8fBozsoxNp0LMs2v/z5xzK9hw3RWzL7d7LBuCwJT0HHXTUtXpEkB6m2rNcH5Ag4QNonsoGRvoIcrgXZ3EoQN5DrLQt5C8E2RDx9hKeGvPh41+drc3nL2d8VRktRwXE+VpgWebXhsgMiLEvB+Ho8p6raGqvFZgN1ss3T9Nh8buoYPrdRPJvsYW3/a/X0gF3OeRl4eiPouQMlBGs2KnDxqcpzdU4jPSO5RGg2UQX2eQlbM17qmnnBhsta2WFHdW4c/9K1JfuKa9uyuqW3RKT3RPyGgd8v22BGSlgxVXJfQa3fUQq0W5giXNa0S4pOiiIHwg8136Ul254cQu8Ezl7YnFPYwcnN1PAP2upFY11srfO9KrTp7Fvt9nq9O1zpXU367lYP6f+50dg8Pev4QyGArTlaWx7dVWzWM6A3EpS8cU9dw6xDLfs9r7PVzcRms2iDMyYVcPugDDeuPx7stgO23OuK0Tkdg0echJLAGBLXNzw/SwxiE/zhDpMg8lySJlFsNuQ2uTmXzmx7EcaA0rAPduxxBHfo3xL5vUKPxaZOkIQW9QwI3ADF0sxIwjA1omEEbhiETpSGJ2KPfPAjep899tpqw8C209QJDSeKhoZHI2pEJEwMN/KdyMogsaLsZ6ttB+Dryx1avh9mTmJEkYtyXZRLnBQMx/JIEGS+5djWz5a7n82vr9V3qZeB7RlJYoHhhb5vJGniGoHjOTSkWZoElxv5HNrMnhZp1s+UWD2xgC5EkdZgM+Hiz/v32HgG2/e7BwFSDtATZLB17IFzpTXhkVoNbGtgXWnTKi8rASMOVSlIfqUtqiRnKY7NVfEX8BF+odQe+h4dWhZ4EYnNwx71htOcSAlS3cBN1R5vjCZcCMjYrh29ClpWWQe6gU2xhT5xj/a5U3xXjm85vhD4Wvm7Xu/P5lwP+IQrHkCU7H/u7YU24mvgINBf02KzAV7KxqQncIc8A4n/0UB8YOiFXkY3VqfNcNLjPJCySBkp8coOOWcCdcLh5TeBe7JlhUAbZQT9gV9YP4IvfbP31B//A/7XvHgTDAAA" generateConnectionHelper="true" generateStoredProcedures="false" fieldNameCase="Unchanged" generateDefaultConstructors="false" useNameOf="true" connectionStringName="ConnectionString" createdInVersion="21.2.10.0" generateJsonSerializationContractResolver="true" generateServiceCollectionExtensions="true" lastModifiedInVersion="21.2.10.0" name="Database" xmlns="http://schemas.microsoft.com/dsltools/ORMDataModel">
+  <comments>
+    <dataBaseObjectModelHasComments Id="cdf02c0e-4018-4108-99b8-847a64daba7f">
+      <comment Id="b204e149-0dda-49a7-975d-0471cccf702d" text="The 'PK_TeleGramUserRel' index is ignored, because 'IdTelegram' is a key" name="TeleGramUserRelComment">
+        <subjects>
+          <commentReferencesSubjects Id="05e58783-12ab-4eaf-ab08-0f56faf21c64">
+            <xpObjectMoniker Id="e4a2bda6-7a35-45fb-a1ab-a37b6943acb9" />
+          </commentReferencesSubjects>
+        </subjects>
+      </comment>
+    </dataBaseObjectModelHasComments>
+  </comments>
+  <classes>
+    <dataBaseObjectModelHasClasses Id="9d146420-0970-4669-968d-9c9d8ff9ba63">
+      <xpObject Id="e4a2bda6-7a35-45fb-a1ab-a37b6943acb9" name="TeleGramUserRel" baseClass="XPLiteObject" userFileName="TeleGramUserRel" designerFileName="TeleGramUserRel.Designer" className="TeleGramUserRel" initialName="TeleGramUserRel" virtualBaseClass="XPLiteObject" persistent="TeleGramUserRel" virtualName="TeleGramUserRel">
+        <fields>
+          <generalXpObjectHasFields Id="fd8e83a9-0c61-43e7-9f1f-9c0d004bfd6f">
+            <field Id="c26b80d4-e636-45df-b88c-979e386829c8" name="IdTelegram" columnType="Int64" initialName="IdTelegram" key="true" persistent="IdTelegram" virtualColumnType="Int64" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="73650d54-72e1-483a-8f5f-8b13813c3b58">
+            <field Id="8611cc28-2997-4d9d-9a8b-395290feb09f" name="Username" initialName="Username" persistent="Username" virtualColumnType="String" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="568a83b1-e83d-4aba-9bc3-daeed02c1eea">
+            <field Id="70558f2b-9937-439d-a2ce-204a66f50210" name="DateAdded" columnType="DateTime" initialName="DateAdded" persistent="DateAdded" virtualColumnType="DateTime" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="390132b3-0794-4272-afee-b96481e80cf8">
+            <field Id="53d4fe14-bb0e-4855-bcb3-6242d8dfcb68" name="Active" columnType="Boolean" initialName="Active" persistent="Active" virtualColumnType="Boolean" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+        </fields>
+        <indexes>
+          <xpObjectHasIndexes Id="46db2e8f-62f0-4fb3-b0df-97148c6e03d8">
+            <index Id="7901991c-e9a2-4da7-b0df-5f51f3123d41" name="TeleGramUserRel_Username_Index">
+              <fieldsInIndex>
+                <indexReferencesFields Id="b3109719-4179-4112-b85c-2be02bdf3c1e">
+                  <fieldMoniker Id="8611cc28-2997-4d9d-9a8b-395290feb09f" />
+                </indexReferencesFields>
+              </fieldsInIndex>
+            </index>
+          </xpObjectHasIndexes>
+        </indexes>
+      </xpObject>
+    </dataBaseObjectModelHasClasses>
+  </classes>
+</dataBaseObjectModel>

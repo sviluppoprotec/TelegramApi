@@ -7,8 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DevExpress.Xpo" Version="21.2.10" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="Telegram.Bot" Version="18.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DataLayer\ProtexTelegram.xpo.diagram">
+      <AutoGen>True</AutoGen>
+    </None>
   </ItemGroup>
 
 </Project>
