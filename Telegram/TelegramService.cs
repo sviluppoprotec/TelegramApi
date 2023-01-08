@@ -82,7 +82,7 @@ namespace ProtecTelegram.Telegram
 						return new InvitationResponse()
 						{
 							Valid = true,
-							Message = $"Ciao {userTelegramRel.Username}. Il tuo invito accettato! Ora riceverai i tuoi messgi qui"
+							Message = $"Ciao {userRelToTelegram.Username}. Il tuo invito accettato! Ora riceverai i tuoi messgi qui"
 						};
 					}
 					else
