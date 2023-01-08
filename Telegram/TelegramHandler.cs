@@ -8,17 +8,25 @@ using DevExpress.Xpo;
 using System.Diagnostics;
 using ProtecTelegram.DataLayer.Database;
 using System.Net;
+using Newtonsoft.Json;
+using ProtecTelegram.Models;
+using static ProtecTelegram.Models.TelegramConfiguration;
 
 namespace ProtecTelegram.Telegram
 {
 	public class TelegramHandler : IHostedService
 	{
-		TelegramBotClient botClient = new TelegramBotClient("5041403364:AAGiDn_1dBV6Hx5kUPkSZ2Joh-mPITrqlRw");
-
+		TelegramBotClient botClient;
 		UnitOfWork uow;
-		public TelegramHandler(UnitOfWork uow)
+		TelegramOptions telegramOptions;
+
+		public TelegramHandler(IConfiguration configuration)
 		{
 			this.uow = new UnitOfWork();
+
+			telegramOptions = new TelegramOptions();
+			configuration.GetSection(TelegramOptions.Telegram).Bind(telegramOptions);
+			botClient = new TelegramBotClient(telegramOptions.BotClientToken);
 		}
 
 		async void StartReceiving()
@@ -39,9 +47,9 @@ namespace ProtecTelegram.Telegram
 			);
 
 			var me = await botClient.GetMeAsync();
-			Console.WriteLine($"Hello, World! I am user {me.Id} and my name is {me.FirstName}.");
+			Debug.WriteLine($"Hello, World! I am user {me.Id} and my name is {me.FirstName}.");
 
-			Console.WriteLine($"Start listening for @{me.Username}");
+			Debug.WriteLine($"Start listening for @{me.Username}");
 		}
 
 		async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
@@ -57,50 +65,50 @@ namespace ProtecTelegram.Telegram
 
 			Debug.WriteLine($"Received a '{messageText}' message in chat {chatId}.");
 
-			if (messageText.StartsWith("/start"))
-			{
-				string[] parts = messageText.Split(' ');
+			//if (messageText.StartsWith("/start"))
+			//{
+			//	string[] parts = messageText.Split(' ');
 
-				if (parts.Length == 2)
-				{
-					Guid token = Guid.Empty;
-					var t = Guid.TryParse(parts[1], out token);
-					TeleGramInvitations invito = uow.Query<TeleGramInvitations>().Where(i => i.Token == token).FirstOrDefault();
-					if (invito != null)
-					{
-						TeleGramUserRel userRelToTelegram = new TeleGramUserRel(uow)
-						{
-							Active= true,
-							DateAdded= DateTime.UtcNow,
-							IdTelegram = chatId,
-							Username= invito.Username
-						};
-						userRelToTelegram.Save();
-						uow.CommitChanges();
-					}
-				}
-			}
+			//	if (parts.Length == 2)
+			//	{
+			//		Guid token = Guid.Empty;
+			//		var t = Guid.TryParse(parts[1], out token);
+			//		TeleGramInvitations invito = uow.Query<TeleGramInvitations>().Where(i => i.Token == token).FirstOrDefault();
+			//		if (invito != null)
+			//		{
+			//			TeleGramUserRel userRelToTelegram = new TeleGramUserRel(uow)
+			//			{
+			//				Active= true,
+			//				DateAdded= DateTime.UtcNow,
+			//				IdTelegram = chatId,
+			//				Username= invito.Username
+			//			};
+			//			userRelToTelegram.Save();
+			//			uow.CommitChanges();
+			//		}
+			//	}
+			//}
 
 			if (messageText.StartsWith("/start"))
 			{
 				using var client = new HttpClient();
 
-				var builder = new UriBuilder("https://localhost:7252/api/Invitation");
+				var builder = new UriBuilder(telegramOptions.InvitationValidServiceUrl);
 				builder.Query = $"chatId={chatId}&messageText={messageText}";
 				var url = builder.ToString();
 				var result = await client.GetAsync(url);
 				if (result.StatusCode == HttpStatusCode.OK)
 				{
 					var res = await result.Content.ReadAsStringAsync();
-					bool success = bool.Parse(res);
+					var invitationResp = JsonConvert.DeserializeObject<InvitationResponse>(res);
 
-					if (success)
+					if (invitationResp.Valid)
 					{
-						await SendMessage(chatId, "Sei stato registrato con successo", cancellationToken);
+						await SendMessage(chatId, invitationResp.Message, cancellationToken);
 					}
 					else
 					{
-						await SendMessage(chatId, "Token non valido", cancellationToken);
+						await SendMessage(chatId, invitationResp.Message, cancellationToken);
 					}
 				}
 				else
@@ -116,10 +124,10 @@ namespace ProtecTelegram.Telegram
 			//	 cancellationToken: cancellationToken);
 
 			//Invio nel gruppo
-			//Message sentMessage2 = await botClient.SendTextMessageAsync(
-			// chatId: -865769596,
-			// text: "You said:\n" + messageText,
-			// cancellationToken: cancellationToken);
+			Message sentMessage2 = await botClient.SendTextMessageAsync(
+			 chatId: -865769596,
+			 text: "You said:\n" + messageText,
+			 cancellationToken: cancellationToken);
 
 			//Message sentMessage3 = await botClient.SendTextMessageAsync(
 			// chatId: 5072519275,

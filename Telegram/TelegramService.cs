@@ -7,6 +7,7 @@ using System.Threading;
 using DevExpress.Xpo;
 using Microsoft.AspNetCore.Mvc;
 using ProtecTelegram.DataLayer.Database;
+using ProtecTelegram.Models;
 
 namespace ProtecTelegram.Telegram
 {
@@ -31,7 +32,6 @@ namespace ProtecTelegram.Telegram
 
 		}
 
-
 		public async Task<long> GetTelegramId(string Username)
 		{
 			var q = await uow.Query<TeleGramUserRel>().FirstOrDefaultAsync(x => x.Username == Username);
@@ -40,6 +40,61 @@ namespace ProtecTelegram.Telegram
 				throw new ApplicationException("Username inesistente");
 			}
 			return q.IdTelegram;
+		}
+
+		public async Task<InvitationResponse> ValidateInvitaition(long chatId, string messageText)
+		{
+			if (messageText.StartsWith("/start"))
+			{
+				string[] parts = messageText.Split(' ');
+
+				if (parts.Length == 2)
+				{
+					Guid token = Guid.Empty;
+					var t = Guid.TryParse(parts[1], out token);
+					TeleGramInvitations invito = await this.uow.Query<TeleGramInvitations>().Where(i => i.Token == token).FirstOrDefaultAsync();
+					if (invito != null)
+					{
+						TeleGramUserRel userTelegramRel = await this.uow.Query<TeleGramUserRel>().Where(r => r.IdTelegram == chatId).FirstOrDefaultAsync();
+						if (userTelegramRel != null)
+						{
+
+							return new InvitationResponse()
+							{
+								Valid = false,
+								Message = $"Il tuo utente {userTelegramRel.Username} è già associato ad un id Telegram. Se sei tu ingonara questo messaggio, altrimenti contatta l'assisteza"
+							};
+						}
+						TeleGramUserRel userRelToTelegram = new TeleGramUserRel(uow)
+						{
+							Active = true,
+							DateAdded = DateTime.UtcNow,
+							IdTelegram = chatId,
+							Username = invito.Username
+						};
+						userRelToTelegram.Save();
+						uow.CommitChanges();
+						return new InvitationResponse()
+						{
+							Valid = true,
+							Message = "Invito accettato. Ora riceverai i tuoi messgi qui"
+						};
+					}
+					else
+					{
+						return new InvitationResponse()
+						{
+							Valid = false,
+							Message = "Token non valido o scaduto. Si prega di contattare l'assistenza"
+						};
+					}
+				}
+			}
+			return new InvitationResponse()
+			{
+				Valid = false,
+				Message = ""
+			};
 		}
 
 		public static string BuildInvitationLink(string botUserName, Guid token)

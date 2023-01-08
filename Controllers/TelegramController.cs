@@ -12,7 +12,7 @@ namespace ProtecTelegram.Controllers
 	public class TelegramController : ControllerBase
 	{
 		[HttpPost]
-		public async Task<SendMessageOutput> Post([FromServices] ITelegramService service, [FromBody] Message message)
+		public async Task<SendMessageOutput> Post([FromServices] ITelegramService service, [FromBody] TelegramMessage message)
 		{
 			// id andrea 5830412583;
 
