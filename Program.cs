@@ -2,19 +2,22 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Configuration;
 using ProtecTelegram.DataLayer.Database;
 using Microsoft.Extensions.DependencyInjection;
+using DevExpress.Xpo;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddScoped<ProtecTelegram.Telegram.ITelegramService, ProtecTelegram.Telegram.TelegramService>();
-builder.Services.AddHostedService<ProtecTelegram.Telegram.TelegramHandler>();
+builder.Services.AddHostedService<ProtecTelegram.Telegram.TelegramHandler>(x => { 
+	return new ProtecTelegram.Telegram.TelegramHandler(null); 
+});
 
 builder.Services.AddControllers();
 
 builder.Services.AddXpoDefaultUnitOfWork(true, options => options
 						  .UseConnectionString(builder.Configuration.GetConnectionString("PC-PRANIOProtecTelegram"))
-						  .UseThreadSafeDataLayer(true)                  
+						  .UseThreadSafeDataLayer(true)
 						  .UseAutoCreationOption(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema) // Remove this line if the database already exists
 						  .UseEntityTypes(typeof(TeleGramUserRel)) // Pass all of your persistent object types to this method.
 					 );

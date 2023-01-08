@@ -1,11 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<dataBaseObjectModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="b184c220-0655-4eb1-b29d-34335295d290" namespace="ProtecTelegram.DataLayer.Database" dataBaseShemaInfo="H4sIAAAAAAAEAMVWXW/bNhR9H7D/IOhpAyLrW5YK2UVtt4HRrTBip+hbQIlXDjGZykjJcfrrdynLiiU7ndsV2UsSnnvu5T3k0Q3jt7tNrm1BSFbwkW4PLP3t+Ndf4gmRsCwLQdYw51mhIYvLNztJR/p9WT68Mc3Hx8fBozsoxNp0LMs2v/z5xzK9hw3RWzL7d7LBuCwJT0HHXTUtXpEkB6m2rNcH5Ag4QNonsoGRvoIcrgXZ3EoQN5DrLQt5C8E2RDx9hKeGvPh41+drc3nL2d8VRktRwXE+VpgWebXhsgMiLEvB+Ho8p6raGqvFZgN1ss3T9Nh8buoYPrdRPJvsYW3/a/X0gF3OeRl4eiPouQMlBGs2KnDxqcpzdU4jPSO5RGg2UQX2eQlbM17qmnnBhsta2WFHdW4c/9K1JfuKa9uyuqW3RKT3RPyGgd8v22BGSlgxVXJfQa3fUQq0W5giXNa0S4pOiiIHwg8136Ul254cQu8Ezl7YnFPYwcnN1PAP2upFY11srfO9KrTp7Fvt9nq9O1zpXU367lYP6f+50dg8Pev4QyGArTlaWx7dVWzWM6A3EpS8cU9dw6xDLfs9r7PVzcRms2iDMyYVcPugDDeuPx7stgO23OuK0Tkdg0echJLAGBLXNzw/SwxiE/zhDpMg8lySJlFsNuQ2uTmXzmx7EcaA0rAPduxxBHfo3xL5vUKPxaZOkIQW9QwI3ADF0sxIwjA1omEEbhiETpSGJ2KPfPAjep899tpqw8C209QJDSeKhoZHI2pEJEwMN/KdyMogsaLsZ6ttB+Dryx1avh9mTmJEkYtyXZRLnBQMx/JIEGS+5djWz5a7n82vr9V3qZeB7RlJYoHhhb5vJGniGoHjOTSkWZoElxv5HNrMnhZp1s+UWD2xgC5EkdZgM+Hiz/v32HgG2/e7BwFSDtATZLB17IFzpTXhkVoNbGtgXWnTKi8rASMOVSlIfqUtqiRnKY7NVfEX8BF+odQe+h4dWhZ4EYnNwx71htOcSAlS3cBN1R5vjCZcCMjYrh29ClpWWQe6gU2xhT5xj/a5U3xXjm85vhD4Wvm7Xu/P5lwP+IQrHkCU7H/u7YU24mvgINBf02KzAV7KxqQncIc8A4n/0UB8YOiFXkY3VqfNcNLjPJCySBkp8coOOWcCdcLh5TeBe7JlhUAbZQT9gV9YP4IvfbP31B//A/7XvHgTDAAA" generateConnectionHelper="true" generateStoredProcedures="false" fieldNameCase="Unchanged" generateDefaultConstructors="false" useNameOf="true" connectionStringName="ConnectionString" createdInVersion="21.2.10.0" generateJsonSerializationContractResolver="true" generateServiceCollectionExtensions="true" lastModifiedInVersion="21.2.10.0" name="Database" xmlns="http://schemas.microsoft.com/dsltools/ORMDataModel">
+<dataBaseObjectModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="b184c220-0655-4eb1-b29d-34335295d290" namespace="ProtecTelegram.DataLayer.Database" dataBaseShemaInfo="H4sIAAAAAAAEANVY227jNhB9X2D/wfBTCyytG3VbyF5s4t3A2HYR5FL0LeBl5BCVpVSUnKRf36EsO7bjJEriJuiLbR7OcOaQo+Gxki83s6w3h1KrIh/2nYHd/zL6+CE5YBpOq6JkU5jkadFDq1x/vtFy2L+sqqvPlnV9fT249gZFObVc23asP3//7VRcwoz1V8bqaWOicl2xXEAfo/Z6yRnjGWgTshkvkTVgCfV+shkM+2eQwVHJZucayhPI+isrtDsu1YyVtz/gtjU+/nGxbd+b6PNc/V3jbFXWsO6PKxwWWT3L9QaIsK5KlU9HE2lWm+JqidVCG97WfffEuktqHd4VKBkfLODe4uvs9gqznORVQPstobsMDBFcs2WBg591lpl9GvZTlmmExgdmgYUfV1OVV/2e1SHgacNsGdHsW46/+r1T9Q+OHdt+MtqcleKSlb+g7a/dYo5ZBWfKRFmsYMZfpQT5ZCyJllXj2SXOQVFkwPJlmK+iUvMuu7e1dTtPepJLuIF7R9rAL6zHByuyc03uztWgbWaPpbuV68WyFi4ao2enunR/daKJdX+vk+9FCWqa4zOh184qsZrmsdVLDL3RFrvWsplaWX/LG29zMonVDlaTY6UNcH5lanDU1A1muwGubI9qJSdyBJS5XLKAhMzzCfVTTpjD8MMLeRBTjwkeJ1ZrvHJu92WjKT4I44ThsJjcKI81eMP8MZLPJbpOVrgBj2xJCQRegGRlSngUCRKHMXhRELmxiO6RXauDl/C9q7G3ZhsFjiOEGxE3jkNCZSxJzCJOvNh3YzsFbsfpvtmu2uTb0w1t349Sl5M49pCuh3SZK4C4NmVBkPq269j7prto12/P1fckTcGhhHMbCI18n3DBPRK41JWRTAUPuhfyLrTtPS+QQZN8ripWoZjTnaXQus9r5NCj/fy/EUOdtEl3WfR8oWIOeRn+rPgL8idj1M32Kgl5pVIF5csE0WEJzYkZfM+aaDvUt5srVb422B4UUucy/b9Ij72LCZdJbocSrxjhEkp9bMZB6JIw9GUYRACOLfYqJt7vchUeC5kTxXjRmI9YShKlXJLQo37g+TbzzB2439umebzfQUdA6rlUOkREUhDquILw0MHz9QL8K+2moe3cl4ivpLreXd5BSjDb4RJSQoPAQ+XkxagTBSUBUM+VdspSzvfNeLPJvT1n6saQUs4JDyAiNOWURCFFzqmRc0jfE91PuYukaMd3Jol53QPyuCxEA7adK/lj8W5oNIY5blIJWg9wi9hg7joD91OvnR6a0cCxB/an3mGdVXUJwxzqqmTZp95xzTMlsB02j9AQRb90Qp/K0LaBxiyxljGagIcZ0xq0OYGTerW9Cera4xJSdbNqqQY6rdMN6ARmxRy2DRfotu0h0zA6z/HGz6emXTTjxd7sygE1VHEFZaXeObcH0kiOIAcsYSzb2QzFhW6L9B68YTwGjTcVlN8V1sKWx+Zc4zbGuxj/YmhdCLW4ilufHRONw1IqHMAlm6uixDJKGdYHPmHbMx8/JNbWa8fRv+KxADCfFAAA" generateConnectionHelper="true" generateStoredProcedures="false" fieldNameCase="Unchanged" generateDefaultConstructors="false" useNameOf="true" connectionStringName="ConnectionString" createdInVersion="21.2.10.0" generateJsonSerializationContractResolver="true" generateServiceCollectionExtensions="true" lastModifiedInVersion="21.2.10.0" name="Database" xmlns="http://schemas.microsoft.com/dsltools/ORMDataModel">
   <comments>
     <dataBaseObjectModelHasComments Id="cdf02c0e-4018-4108-99b8-847a64daba7f">
       <comment Id="b204e149-0dda-49a7-975d-0471cccf702d" text="The 'PK_TeleGramUserRel' index is ignored, because 'IdTelegram' is a key" name="TeleGramUserRelComment">
         <subjects>
           <commentReferencesSubjects Id="05e58783-12ab-4eaf-ab08-0f56faf21c64">
             <xpObjectMoniker Id="e4a2bda6-7a35-45fb-a1ab-a37b6943acb9" />
+          </commentReferencesSubjects>
+        </subjects>
+      </comment>
+    </dataBaseObjectModelHasComments>
+    <dataBaseObjectModelHasComments Id="80981b7c-e40c-4f3a-96d3-811c914c8d76">
+      <comment Id="e2d4a907-efcb-4f6d-8b51-075a26ef73f4" text="The 'PK_TeleGramInvitations' index is ignored, because 'Username' is a key" name="TeleGramInvitationsComment">
+        <subjects>
+          <commentReferencesSubjects Id="67c47f78-0215-4076-9380-499aec811d94">
+            <xpObjectMoniker Id="e2adb07d-39c2-445b-9672-775d768ee10c" />
           </commentReferencesSubjects>
         </subjects>
       </comment>
@@ -39,6 +48,24 @@
             </index>
           </xpObjectHasIndexes>
         </indexes>
+      </xpObject>
+    </dataBaseObjectModelHasClasses>
+    <dataBaseObjectModelHasClasses Id="b39c09c1-93f6-42b7-aa17-eceaccf9509f">
+      <xpObject Id="e2adb07d-39c2-445b-9672-775d768ee10c" name="TeleGramInvitations" baseClass="XPLiteObject" userFileName="TeleGramInvitations" designerFileName="TeleGramInvitations.Designer" className="TeleGramInvitations" initialName="TeleGramInvitations" virtualBaseClass="XPLiteObject" persistent="TeleGramInvitations" virtualName="TeleGramInvitations">
+        <fields>
+          <generalXpObjectHasFields Id="76efa3d0-b90a-4ba1-83d9-c8de975172d1">
+            <field Id="c3a7a189-4389-49dd-8fbd-73456350a3ed" name="Username" initialName="Username" key="true" persistent="Username" virtualColumnType="String" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="35c05af1-ce57-4511-80b6-2e3a8dd5273d">
+            <field Id="8ef324d1-c8dc-412c-b712-4362002f7019" name="Token" columnType="Guid" initialName="Token" persistent="Token" virtualColumnType="Guid" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="06882fab-3abf-4e9d-9287-4ac2a862cc4f">
+            <field Id="7a01bdef-4663-4d39-b8c4-6e432d0fafbb" name="CreationDate" columnType="DateTime" initialName="CreationDate" persistent="CreationDate" virtualColumnType="DateTime" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="075e35b0-04c3-4d86-bca7-3ade95c0f577">
+            <field Id="429ef4bb-b6e8-4fb4-8744-6fddedb8c3c9" name="ExpirationDate" columnType="DateTime" initialName="ExpirationDate" persistent="ExpirationDate" virtualColumnType="DateTime" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+        </fields>
       </xpObject>
     </dataBaseObjectModelHasClasses>
   </classes>

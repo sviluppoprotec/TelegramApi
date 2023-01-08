@@ -6,15 +6,19 @@ using Telegram.Bot.Types;
 using Telegram.Bot;
 using DevExpress.Xpo;
 using System.Diagnostics;
+using ProtecTelegram.DataLayer.Database;
+using System.Net;
 
 namespace ProtecTelegram.Telegram
 {
-	public class TelegramHandler: IHostedService
+	public class TelegramHandler : IHostedService
 	{
 		TelegramBotClient botClient = new TelegramBotClient("5041403364:AAGiDn_1dBV6Hx5kUPkSZ2Joh-mPITrqlRw");
-		public TelegramHandler()
+
+		UnitOfWork uow;
+		public TelegramHandler(UnitOfWork uow)
 		{
-			StartReceiving();
+			this.uow = new UnitOfWork();
 		}
 
 		async void StartReceiving()
@@ -38,16 +42,6 @@ namespace ProtecTelegram.Telegram
 			Console.WriteLine($"Hello, World! I am user {me.Id} and my name is {me.FirstName}.");
 
 			Console.WriteLine($"Start listening for @{me.Username}");
-			Console.ReadLine();
-
-			// Send cancellation request to stop bot
-			cts.Cancel();
-
-			ChatId id = new ChatId(1064816047);
-			var t = await botClient.SendTextMessageAsync(id, "text message");
-
-
-
 		}
 
 		async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
@@ -63,6 +57,58 @@ namespace ProtecTelegram.Telegram
 
 			Debug.WriteLine($"Received a '{messageText}' message in chat {chatId}.");
 
+			if (messageText.StartsWith("/start"))
+			{
+				string[] parts = messageText.Split(' ');
+
+				if (parts.Length == 2)
+				{
+					Guid token = Guid.Empty;
+					var t = Guid.TryParse(parts[1], out token);
+					TeleGramInvitations invito = uow.Query<TeleGramInvitations>().Where(i => i.Token == token).FirstOrDefault();
+					if (invito != null)
+					{
+						TeleGramUserRel userRelToTelegram = new TeleGramUserRel(uow)
+						{
+							Active= true,
+							DateAdded= DateTime.UtcNow,
+							IdTelegram = chatId,
+							Username= invito.Username
+						};
+						userRelToTelegram.Save();
+						uow.CommitChanges();
+					}
+				}
+			}
+
+			if (messageText.StartsWith("/start"))
+			{
+				using var client = new HttpClient();
+
+				var builder = new UriBuilder("https://localhost:7252/api/Invitation");
+				builder.Query = $"chatId={chatId}&messageText={messageText}";
+				var url = builder.ToString();
+				var result = await client.GetAsync(url);
+				if (result.StatusCode == HttpStatusCode.OK)
+				{
+					var res = await result.Content.ReadAsStringAsync();
+					bool success = bool.Parse(res);
+
+					if (success)
+					{
+						await SendMessage(chatId, "Sei stato registrato con successo", cancellationToken);
+					}
+					else
+					{
+						await SendMessage(chatId, "Token non valido", cancellationToken);
+					}
+				}
+				else
+				{
+					await SendMessage(chatId, "Errore nel servizio di registrazione", cancellationToken);
+				}
+			}
+
 			//// Echo received message text
 			//Message sentMessage = await botClient.SendTextMessageAsync(
 			//	 chatId: chatId,
@@ -70,15 +116,23 @@ namespace ProtecTelegram.Telegram
 			//	 cancellationToken: cancellationToken);
 
 			//Invio nel gruppo
-			Message sentMessage2 = await botClient.SendTextMessageAsync(
-			 chatId: -865769596,
-			 text: "You said:\n" + messageText,
-			 cancellationToken: cancellationToken);
+			//Message sentMessage2 = await botClient.SendTextMessageAsync(
+			// chatId: -865769596,
+			// text: "You said:\n" + messageText,
+			// cancellationToken: cancellationToken);
 
 			//Message sentMessage3 = await botClient.SendTextMessageAsync(
 			// chatId: 5072519275,
 			// text: "Amorchick è il computer che ti scrive il messaggio: " + messageText,
 			// cancellationToken: cancellationToken);
+		}
+
+		private async  Task<Message> SendMessage(long chatId, string text, CancellationToken cancellationToken)
+		{
+			return await botClient.SendTextMessageAsync(
+				 chatId: chatId,
+				 text: text,
+				 cancellationToken: cancellationToken);
 		}
 
 		Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
@@ -96,6 +150,7 @@ namespace ProtecTelegram.Telegram
 
 		public void Start()
 		{
+			string inv = TelegramService.BuildInvitationLink("PranioBot", Guid.NewGuid());
 			StartReceiving();
 		}
 

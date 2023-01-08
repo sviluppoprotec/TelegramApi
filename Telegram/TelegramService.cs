@@ -41,5 +41,18 @@ namespace ProtecTelegram.Telegram
 			}
 			return q.IdTelegram;
 		}
+
+		public static string BuildInvitationLink(string botUserName, Guid token)
+		{
+			var uriBuilder = new UriBuilder()
+			{
+				Scheme = "https",
+				Host = "t.me",
+				Path = botUserName,
+				Query = QueryString.Create("start", token.ToString()).ToString()
+			};
+
+			return uriBuilder.ToString();
+		}
 	}
 }

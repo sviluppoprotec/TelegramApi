@@ -19,7 +19,8 @@ namespace ProtecTelegram.DataLayer.Database
 	public static class ConnectionHelper
 	{
 		static Type[] persistentTypes = new Type[] {
-			typeof(TeleGramUserRel)
+			typeof(TeleGramUserRel),
+			typeof(TeleGramInvitations)
 		};
 		public static Type[] GetPersistentTypes()
 		{
