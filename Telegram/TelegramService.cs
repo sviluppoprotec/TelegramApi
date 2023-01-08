@@ -8,16 +8,21 @@ using DevExpress.Xpo;
 using Microsoft.AspNetCore.Mvc;
 using ProtecTelegram.DataLayer.Database;
 using ProtecTelegram.Models;
+using static ProtecTelegram.Models.TelegramConfiguration;
 
 namespace ProtecTelegram.Telegram
 {
 	public class TelegramService : ITelegramService
 	{
-		TelegramBotClient botClient = new TelegramBotClient("5041403364:AAGiDn_1dBV6Hx5kUPkSZ2Joh-mPITrqlRw");
+		TelegramBotClient botClient;
 		UnitOfWork uow;
-		public TelegramService(UnitOfWork uow)
+		TelegramOptions telegramOptions;
+		public TelegramService(UnitOfWork uow, IConfiguration configuration)
 		{
 			this.uow = uow;
+			telegramOptions = new TelegramOptions();
+			configuration.GetSection(TelegramOptions.Telegram).Bind(telegramOptions);
+			botClient = new TelegramBotClient(telegramOptions.BotClientToken);
 		}
 
 		public async Task<int> Send(long chatId, string message)
@@ -62,7 +67,7 @@ namespace ProtecTelegram.Telegram
 							return new InvitationResponse()
 							{
 								Valid = false,
-								Message = $"Il tuo utente {userTelegramRel.Username} è già associato ad un id Telegram. Se sei tu ingonara questo messaggio, altrimenti contatta l'assisteza"
+								Message = $"Ciao {userTelegramRel.Username}. Risulta un utente già associato al tuo id Telegram. Se sei tu ignora questo messaggio, altrimenti contatta l'assisteza"
 							};
 						}
 						TeleGramUserRel userRelToTelegram = new TeleGramUserRel(uow)
@@ -77,7 +82,7 @@ namespace ProtecTelegram.Telegram
 						return new InvitationResponse()
 						{
 							Valid = true,
-							Message = "Invito accettato. Ora riceverai i tuoi messgi qui"
+							Message = $"Ciao {userTelegramRel.Username}. Il tuo invito accettato! Ora riceverai i tuoi messgi qui"
 						};
 					}
 					else
@@ -97,13 +102,36 @@ namespace ProtecTelegram.Telegram
 			};
 		}
 
-		public static string BuildInvitationLink(string botUserName, Guid token)
+		public async Task<string> BuildInvitation(string username)
 		{
+			var token = Guid.NewGuid();
+
+			TeleGramInvitations invito = await this.uow.Query<TeleGramInvitations>().Where(i => i.Username == username).FirstOrDefaultAsync();
+			if (invito == null)
+			{
+				TeleGramInvitations newInvitation = new TeleGramInvitations(uow)
+				{
+					CreationDate = DateTime.Now,
+					ExpirationDate = DateTime.Now.AddMonths(1),
+					Username = username,
+					Token = token
+				};
+				newInvitation.Save();
+			}
+			else
+			{
+				invito.Token = token;
+				invito.ExpirationDate = DateTime.Now.AddMonths(1);
+				invito.Save();
+			}
+			uow.CommitChanges();
+
+
 			var uriBuilder = new UriBuilder()
 			{
 				Scheme = "https",
 				Host = "t.me",
-				Path = botUserName,
+				Path = telegramOptions.BotUserName,
 				Query = QueryString.Create("start", token.ToString()).ToString()
 			};
 

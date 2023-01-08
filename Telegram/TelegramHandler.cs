@@ -96,7 +96,7 @@ namespace ProtecTelegram.Telegram
 				var builder = new UriBuilder(telegramOptions.InvitationValidServiceUrl);
 				builder.Query = $"chatId={chatId}&messageText={messageText}";
 				var url = builder.ToString();
-				var result = await client.GetAsync(url);
+				var result = await client.PostAsync(url, null);
 				if (result.StatusCode == HttpStatusCode.OK)
 				{
 					var res = await result.Content.ReadAsStringAsync();
@@ -135,7 +135,7 @@ namespace ProtecTelegram.Telegram
 			// cancellationToken: cancellationToken);
 		}
 
-		private async  Task<Message> SendMessage(long chatId, string text, CancellationToken cancellationToken)
+		private async Task<Message> SendMessage(long chatId, string text, CancellationToken cancellationToken)
 		{
 			return await botClient.SendTextMessageAsync(
 				 chatId: chatId,
@@ -158,7 +158,6 @@ namespace ProtecTelegram.Telegram
 
 		public void Start()
 		{
-			string inv = TelegramService.BuildInvitationLink("PranioBot", Guid.NewGuid());
 			StartReceiving();
 		}
 

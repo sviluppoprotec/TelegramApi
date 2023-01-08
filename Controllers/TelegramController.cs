@@ -11,6 +11,12 @@ namespace ProtecTelegram.Controllers
 	[ApiController]
 	public class TelegramController : ControllerBase
 	{
+		/// <summary>
+		/// Send a message to telegram
+		/// </summary>
+		/// <param name="service"></param>
+		/// <param name="message">Message's text</param>
+		/// <returns></returns>
 		[HttpPost]
 		public async Task<SendMessageOutput> Post([FromServices] ITelegramService service, [FromBody] TelegramMessage message)
 		{
