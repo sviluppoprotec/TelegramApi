@@ -119,10 +119,10 @@ namespace ProtecTelegram.Telegram
 			}
 
 			//Invio nel gruppo
-			Message sentMessage2 = await botClient.SendTextMessageAsync(
-			 chatId: -865769596,
-			 text: $"{userName} ha detto:\n" + messageText,
-			 cancellationToken: cancellationToken);
+			//Message sentMessage2 = await botClient.SendTextMessageAsync(
+			// chatId: -865769596,
+			// text: $"{userName} ha detto:\n" + messageText,
+			// cancellationToken: cancellationToken);
 
 		}
 
