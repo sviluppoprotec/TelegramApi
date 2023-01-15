@@ -1,0 +1,5 @@
+C:\Users\usernexus\source\repos\TelegramWS\ProtecTelegramWindowsService\obj\Debug\net7.0\ProtecTelegramWindowsService.csproj.AssemblyReference.cache
+C:\Users\usernexus\source\repos\TelegramWS\ProtecTelegramWindowsService\obj\Debug\net7.0\ProtecTelegramWindowsService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\usernexus\source\repos\TelegramWS\ProtecTelegramWindowsService\obj\Debug\net7.0\ProtecTelegramWindowsService.AssemblyInfoInputs.cache
+C:\Users\usernexus\source\repos\TelegramWS\ProtecTelegramWindowsService\obj\Debug\net7.0\ProtecTelegramWindowsService.AssemblyInfo.cs
+C:\Users\usernexus\source\repos\TelegramWS\ProtecTelegramWindowsService\obj\Debug\net7.0\ProtecTelegramWindowsService.csproj.CoreCompileInputs.cache

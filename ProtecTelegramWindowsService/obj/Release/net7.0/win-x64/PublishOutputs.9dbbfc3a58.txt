@@ -1,0 +1,4 @@
+C:\Users\usernexus\source\repos\TelegramWS\ProtecTelegramWindowsService\bin\Release\net7.0\win-x64\publish\appsettings.Development.json
+C:\Users\usernexus\source\repos\TelegramWS\ProtecTelegramWindowsService\bin\Release\net7.0\win-x64\publish\appsettings.json
+C:\Users\usernexus\source\repos\TelegramWS\ProtecTelegramWindowsService\bin\Release\net7.0\win-x64\publish\ProtecTelegramWindowsService.pdb
+C:\Users\usernexus\source\repos\TelegramWS\ProtecTelegramWindowsService\bin\Release\net7.0\win-x64\publish\ProtecTelegramWindowsService.exe
