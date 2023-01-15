@@ -11,6 +11,13 @@ namespace ProtecTelegram.Controllers
 	[ApiController]
 	public class TelegramController : ControllerBase
 	{
+
+		[HttpGet]
+		public async Task<string> Get([FromServices] ITelegramService service, long telegramId)
+		{
+			return (await service.GetUserName(new UserInput{ TelegramId = telegramId })).UserName;
+		}
+
 		/// <summary>
 		/// Send a message to telegram
 		/// </summary>

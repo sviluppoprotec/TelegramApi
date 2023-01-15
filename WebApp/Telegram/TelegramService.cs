@@ -34,7 +34,22 @@ namespace ProtecTelegram.Telegram
 				 text: "You said:\n" + message,
 				 cancellationToken: cancellationToken);
 			return sentMessage.MessageId;
+		}
 
+		public async Task<UserOutput> GetUserName(UserInput input)
+		{
+			var q = await uow.Query<TeleGramUserRel>().FirstOrDefaultAsync(x => x.IdTelegram == input.TelegramId);
+			if (q == null)
+			{
+				return new UserOutput
+				{
+					UserName = ""
+				};
+			}
+			return new UserOutput
+			{
+				UserName = q.Username
+			};
 		}
 
 		public async Task<long> GetTelegramId(string Username)

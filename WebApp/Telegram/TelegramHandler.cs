@@ -66,40 +66,33 @@ namespace ProtecTelegram.Telegram
 
 			Debug.WriteLine($"Received a '{messageText}' message in chat {chatId}.");
 
-			//if (messageText.StartsWith("/start"))
-			//{
-			//	string[] parts = messageText.Split(' ');
+			string userName = $"Utente {message.Chat.FirstName} {message.Chat.LastName}";
 
-			//	if (parts.Length == 2)
-			//	{
-			//		Guid token = Guid.Empty;
-			//		var t = Guid.TryParse(parts[1], out token);
-			//		TeleGramInvitations invito = uow.Query<TeleGramInvitations>().Where(i => i.Token == token).FirstOrDefault();
-			//		if (invito != null)
-			//		{
-			//			TeleGramUserRel userRelToTelegram = new TeleGramUserRel(uow)
-			//			{
-			//				Active= true,
-			//				DateAdded= DateTime.UtcNow,
-			//				IdTelegram = chatId,
-			//				Username= invito.Username
-			//			};
-			//			userRelToTelegram.Save();
-			//			uow.CommitChanges();
-			//		}
-			//	}
-			//}
+			try
+			{
+				using var client = new HttpClient();
+				var builder = new UriBuilder(telegramOptions.UsernameServiceUrl);
+				builder.Query = $"telegramId={chatId}";
+				var url = builder.ToString();
+				var result = await client.GetAsync(url);
+				var userAppo = await result.Content.ReadAsStringAsync();
+				userName = userAppo != string.Empty ? userAppo : userName;
+			}
+			catch (Exception ex)
+			{
+				await SendMessage(chatId, $"Errore nel servizio di recupero utente: {ex.Message}", cancellationToken);
+			}
 
 			if (messageText.StartsWith("/start"))
 			{
-				using var client = new HttpClient();
+				using var client2 = new HttpClient();
 
 				var builder = new UriBuilder(telegramOptions.InvitationValidServiceUrl);
 				builder.Query = $"chatId={chatId}&messageText={messageText}";
 				var url = builder.ToString();
 				try
 				{
-					var result = await client.PostAsync(url, null);
+					var result = await client2.PostAsync(url, null);
 					if (result.StatusCode == HttpStatusCode.OK)
 					{
 						var res = await result.Content.ReadAsStringAsync();
@@ -125,22 +118,12 @@ namespace ProtecTelegram.Telegram
 				}
 			}
 
-			//// Echo received message text
-			//Message sentMessage = await botClient.SendTextMessageAsync(
-			//	 chatId: chatId,
-			//	 text: "You said:\n" + messageText,
-			//	 cancellationToken: cancellationToken);
-
 			//Invio nel gruppo
 			Message sentMessage2 = await botClient.SendTextMessageAsync(
 			 chatId: -865769596,
-			 text: "You said:\n" + messageText,
+			 text: $"{userName} ha detto:\n" + messageText,
 			 cancellationToken: cancellationToken);
 
-			//Message sentMessage3 = await botClient.SendTextMessageAsync(
-			// chatId: 5072519275,
-			// text: "Amorchick è il computer che ti scrive il messaggio: " + messageText,
-			// cancellationToken: cancellationToken);
 		}
 
 		private async Task<Message> SendMessage(long chatId, string text, CancellationToken cancellationToken)
@@ -167,9 +150,15 @@ namespace ProtecTelegram.Telegram
 		public async Task Start()
 		{
 			StartReceiving();
-			Message sentMessage2 = await botClient.SendTextMessageAsync(
-			 chatId: -865769596,
-			 text: "Servizio StartReceiving avviato");
+			try
+			{
+				Message sentMessage2 = await botClient.SendTextMessageAsync(
+				 chatId: -865769596,
+				 text: "Servizio StartReceiving avviato");
+			}
+			catch
+			{
+			}
 		}
 
 		public async Task StartAsync(CancellationToken cancellationToken)
